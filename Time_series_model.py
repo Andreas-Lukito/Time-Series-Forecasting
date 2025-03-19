@@ -50,7 +50,7 @@ def make_forecast(df, store, product, forecast):
 
 #main function
 def main():
-    df = pd.read_csv("./datset/train.csv", sep=",")
+    df = st.file_uploader(type="csv")
     store = st.slider('store', min_value=0, max_value=6, value=1)
     product = st.slider('product', min_value=0, max_value=9, value=1)
     forecast_days = st.slider("forecast_days", min_value=0, max_value=365, value=1)
