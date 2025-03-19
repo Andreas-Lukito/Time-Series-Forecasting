@@ -6,6 +6,9 @@ import pandas as pd
 #Prophet Library
 from prophet import Prophet
 
+#streamlit library
+import streamlit as st
+
 # Functions
 ## Split data per store
 def store_split_data(dataset, store):
@@ -43,3 +46,18 @@ def make_forecast(df, store, product, forecast):
 
     #plot the forecast
     fig = model.plot(forecast)
+    return fig
+
+#main function
+def main():
+    df = pd.read_csv("./datset/train.csv", sep=",")
+    store = st.slider('store', min_value=0, max_value=6, value=1)
+    product = st.slider('product', min_value=0, max_value=9, value=1)
+    forecast_days = st.slider("forecast_days", min_value=0, max_value=365, value=1)
+
+    if st.button('Make Prediction'):
+        fig = make_forecast(df, store, product, forecast_days)
+        st.plot(fig)
+        
+if __name__ == "__main__":
+    main()
