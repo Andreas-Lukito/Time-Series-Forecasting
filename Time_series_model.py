@@ -58,7 +58,7 @@ def main():
 
     if st.button('Make Prediction'):
         fig = make_forecast(df, store, product, forecast_days)
-        st.plot(fig)
+        st.pyplot(fig)
         
 if __name__ == "__main__":
     main()
