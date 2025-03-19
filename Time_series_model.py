@@ -51,16 +51,22 @@ def make_forecast(df, store, product, forecast):
 #main function
 def main():
     st.title("Time Series Forecasting Using Prophet")
-    df = st.file_uploader('Upload your csv file', type="csv", accept_multiple_files=False)
-    df = pd.read_csv(df, sep = ",")
-    store = st.slider('store', min_value=0, max_value=6, value=1)
-    product = st.slider('product', min_value=0, max_value=9, value=1)
-    forecast_days = st.slider("forecast_days", min_value=0, max_value=365, value=1)
+    df = st.file_uploader('Upload your CSV file', type="csv", accept_multiple_files=False)
+    
+    if df is not None:
+        df = pd.read_csv(df, sep=",")
+        
+        store = st.slider('Store', min_value=0, max_value=6, value=1)
+        product = st.slider('Product', min_value=0, max_value=9, value=1)
+        forecast_days = st.slider("Forecast Days", min_value=0, max_value=365, value=1)
 
-    if st.button('Make Prediction'):
-        fig = make_forecast(df, store, product, forecast_days)
-        fig.axes[0].set_title(f"Stock Prediction for Store {store}, Product {product}")
-        st.pyplot(fig)
+        if st.button('Make Prediction'):
+            fig = make_forecast(df, store, product, forecast_days)
+
+            # Add title to the plot
+            fig.axes[0].set_title(f"Stock Prediction for Store {store}, Product {product}")
+
+            st.pyplot(fig)
         
 if __name__ == "__main__":
     main()
